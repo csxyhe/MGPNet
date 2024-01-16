@@ -1,0 +1,80 @@
+
+#### general settings
+name: MGPNet
+use_tb_logger: true
+model: DL
+gpu_ids: [1]
+
+
+#### datasets
+datasets:
+  train:
+    name: SPS
+    mode: LQGTRN
+    dataroot_GT: '../../data/smoothingData/SPS/gt/' # path to training Clean images
+    dataroot_Noisy: '../../data/smoothingData/SPS/train/' # path to training Noisy images
+    dataroot_LQ: ~ # path to training reference LR images, not necessary, if not provided, LR images will be generated in dataloader
+
+    use_shuffle: true
+    n_workers: 12  # per GPU
+    batch_size: 8
+    GT_size: 128
+    use_flip: true
+    use_rot: true
+    color: RGB
+
+  val:
+    name: SPS_val
+    mode: LQGTRN
+    dataroot_GT: '../../data/smoothingData/SPS/val_gt/' # '/home/xuyi/data/test/sps_gt/' # '/home/kunkun/codes/InvDN-main/codes/dataset/nks_gt/' # path to validation Clean images
+    dataroot_Noisy: '../../data/smoothingData/SPS/val_textured/' # '/home/xuyi/data/test/sps_textured/' # '/home/kunkun/codes/InvDN-main/codes/dataset/nks_tx/' # path to validation Noisy images
+    dataroot_LQ: ~ # path to validation reference LR images, not necessary, if not provided, LR images will be generated in dataloader
+
+
+
+#### network structures
+network_G:
+  in_nc: 3
+  out_nc: 3
+  fine_ws: 8
+  coarse_ws: 16
+  use_bias: true
+  factor: 2
+
+
+#### path
+path:
+  pretrain_model_G: ~ 
+  strict_load: true
+  resume_state:  ~ # path of the resume state
+
+#### training settings: learning rate scheme, loss
+train:
+  lr_G: !!float 2e-4
+  beta1: 0.9
+  beta2: 0.999
+  niter: 300000 
+  warmup_iter: -1  # no warm up
+
+  lr_scheme: MultiStepLR
+  lr_steps: [100000, 200000]
+  lr_gamma: 0.5
+
+  pixel_criterion_forw: l2
+  pixel_criterion_back: l1
+
+  manual_seed: 10
+
+  val_freq: !!float 5000
+  img_multiple_of: 64 # the width / height of validation images must be a multiple of `img_multiple_of`.
+
+  lambda_fit_forw: 16.
+  lambda_rec_back: 1
+  lambda_ce_forw: 1
+  weight_decay_G: !!float 1e-8
+  gradient_clipping: 10
+
+# logger
+logger:
+  print_freq: 10
+  save_checkpoint_freq: !!float 5000
