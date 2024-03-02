@@ -2,7 +2,7 @@
 
 This repository contains the PyTorch Implementation of the following paper:
 
-> **Image Smoothing via Multiscale Global Perception**
+> **Image Smoothing via Multiscale Global Perception, SPL, 2024**
 
 
 
@@ -16,8 +16,8 @@ The approach of generating the trainsets is showed in [https://github.com/YidFen
 
 ### testsets
 
-- [SPS](https://drive.google.com/drive/folders/1EDqgjFZt5KndZlHjtD2EjpcXvfzT878s?usp=sharing)
-- [NKS](https://drive.google.com/drive/folders/1rsWLc7kpyM2VfGwY_Gu94TH2bnt3ywfV?usp=sharing)
+- SPS testset: [https://drive.google.com/drive/folders/1EDqgjFZt5KndZlHjtD2EjpcXvfzT878s?usp=sharing]
+- NKS testset: [https://drive.google.com/drive/folders/1rsWLc7kpyM2VfGwY_Gu94TH2bnt3ywfV?usp=sharing]
 
 
 
@@ -64,5 +64,11 @@ Pretrained model is released on `../experiments/MGPNet/models/best_G.pth`.
 ## Citation
 
 ```
-
+@article{he2024image,
+  title={Image Smoothing via Multiscale Global Perception},
+  author={He, Xuyi and Quan, Yuhui and Xu, Yong and Xu, Ruotao},
+  journal={IEEE Signal Processing Letters},
+  year={2024},
+  publisher={IEEE}
+}
 ```
